@@ -15,14 +15,12 @@ CHIP DMux {
 
     PARTS:
     // Put your code here:
-    // NOT(sel)
-    Nand(a=sel, b=sel, out=notSel);
 
-    // AND(in, notSel)
-    Nand(a=in, b=notSel, out=AnandnotSel);
-    Nand(a=AnandnotSel, b=AnandnotSel, out=a);
+    Nand(a=sel, b=sel, out=nsel);
 
-    // AND(in, sel)
-    Nand(a=in, b=sel, out=AnandSel);
-    Nand(a=AnandSel, b=AnandSel, out=b);
+    Nand(a=in, b=nsel, out=c);
+    Nand(a=c, b=c, out=a);
+
+    Nand(a=in, b=sel, out=e);
+    Nand(a=e, b=e, out=b);
 }
