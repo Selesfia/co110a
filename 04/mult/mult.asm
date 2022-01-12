@@ -8,29 +8,40 @@
 
 // Put your code here.
 
-// 填入第一個值
-0.   @2     // 第一個值
-1.   D=A    // 值放入D
-2.   @0     
-3.   M=D    // 把 D 填入 M 0
+@2	//GO TO FINAL ANSWER BOX
+M=0	//ZERO ANS BOX
 
-4.   @4     // 第二個值
-5.   D=A    // 值放入D
-6.   @1
-7.   M=D    // 把 D 填入 M 1
-8.   @11    // 把值放到 M 12裡面(@12是跳回的地方(D=D+M)，順便做判斷)
-9.   M=D    // 這個當作過渡變數，遞減判斷迴圈
+@0
+D=M
+@END
+D;JEQ	//IF ONE PRODUCT IS ZERO
 
-10.  D=0
-11.  @0    
-12.  D=D+M  // 把數字相加多次變成乘
-13.  @11
-14.  M=M-1  // 判定加的次數(第二個值)
-15.  M;JNE  // 如果 M == 0 跳出迴圈
+@1
+D=M
+@END
+D;JEQ	//IF ONE PRODUCT IS ZERO
 
-16.  @2     // 第三個數
-17.  M=D    // 把最後相乘的數放到 M 2
+@0	//NOT NECESSARY
+D=M	//
+@3	//
+M=D	//ONLY TO KEEP THE NUMBERS BEING MUTLIPLED
 
-// 卡迴圈
-18.  @18
-19.  0;JMP
+
+(LOOP)
+@1	//GET 2ND NUM
+D=M	//D HAS 2ND NUM
+
+@2	//GO TO FINAL ANSWER BOX
+M=D+M	//RAM[2] NOW HAS 2ND NUMBER + ITS PREVIOUS VALUE
+
+@3	//GET 1ST NUM
+M=M-1	//1ST NUM-1
+
+D=M	//IDK WHY D NEEDS TO =M?
+@LOOP	//WHERE TO JUMP TO
+D;JGT	//JUMP		    (WHY CANT THIS BE M;JGT?)
+
+
+(END)
+@END
+0;JMP	//FOREVER LOOP

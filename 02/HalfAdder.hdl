@@ -15,6 +15,9 @@ CHIP HalfAdder {
     PARTS:
     // Put you code here:
 
-    Xor(a=a, b=b, out=sum);
-    And(a=a, b=b, out=carry);
+    Nand(a=a,b=b,out=c);
+    Nand(a=a,b=c,out=d);
+    Nand(a=c,b=b,out=e);
+    Nand(a=d,b=e,out=sum);
+    Nand(a=c,b=c,out=carry);
 }

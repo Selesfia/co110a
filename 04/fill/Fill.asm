@@ -13,38 +13,31 @@
 
 // Put your code here.
 
-@16384    //設定起點
-D=A
-@1
-M=D
-
-@0        //填充白
-M=0
-@10
-0;JMP     //跳過填充黑
-
-@0        //填充黑
-M=-1
-
-@0        //將填充放入D
-D=M
-@1        //位置設定
-A=M
-M=D       //填充
-
-@24575    //確認位置不為底
-D=A
-@1
-D=D-M
-@0        //為底則重設起點
-D;JEQ
-
-@1        //位置+1
-M=M+1
-
-@24576    //鍵盤沒按跳至填充白
-D=M
-@4
-D;JEQ
-@8        //按了跳至填充黑
-0;JMP
+@8192 //total repeat for changing the screen (n)
+	D=A
+	@0
+	M=D //put n in RAM[0]
+	@24576
+	D=M
+	@18
+	D;JNE //if detect keyboard input, jump to line * 18
+	@0 //else, start loop for white screen
+	D=M //current n
+	M=M-1 //next n value = current n - 1
+	@0
+	D;JEQ //if n equal to zero, break the loop
+	@16383
+	A=D+A // go to RAM[16383 + n]
+	M=0 //set RAM[16383 + n] value into 0 (white screen)
+	@8
+	0;JMP //repeat the loop
+	@0 //(line * 18) start loop for black screen
+	D=M
+	M=M-1
+	@0
+	D;JEQ
+	@24576
+	A=A-D // go to RAM[24576 - n]
+	M=-1 //set RAM[24576 - n] value into -1 (black screen)
+	@18
+	0;JMP //repeat the loop
